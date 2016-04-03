@@ -245,6 +245,19 @@ class PlayerInventory extends BaseInventory{
 
 		return true;
 	}
+	
+	public function remove(Item $item){
+		$checkDamage = $item->getDamage() === null ? false : true;
+		$checkTags = $item->getCompoundTag() === null ? false : true;
+		
+		for($i = 0; $i < $this->getHotbarSize(); ++$i){
+			$index = $this->getHotbarSlotIndex($i);
+			if($index==$this->getHeldItemIndex()){
+				$this->clear($index);
+				break;
+			}
+		}
+	}
 
 	public function clear($index){
 		if(isset($this->slots[$index])){
